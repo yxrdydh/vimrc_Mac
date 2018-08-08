@@ -43,6 +43,7 @@ Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'morhetz/gruvbox'
+Plugin 'ayu-theme/ayu-vim'
 Plugin 'veloce/vim-aldmeris'
 Plugin 'tomasr/molokai'
 "SnipMate plugins
@@ -130,7 +131,7 @@ inoremap <C-v> <F10><C-r>+<F10>
 
 " maps for Tagbar and Ctags
 nnoremap <silent> <F9> :TagbarToggle<CR>
-nmap <F6> :NERDTreeToggle<CR>
+nmap <C-e> :NERDTreeToggle<CR>
 """""""""""""""""""""""""""
 " Git-gutter configuration
 """""""""""""""""""""""""""
