@@ -44,7 +44,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin of color schemes
 Plugin 'morhetz/gruvbox'
-Plugin 'ayu-theme/ayu-vim'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'noahfrederick/vim-hemisu'
 Plugin 'veloce/vim-aldmeris'
 Plugin 'tomasr/molokai'
@@ -191,7 +191,7 @@ function! ToggleBackground()
         set background=light
          " Color scheme
         try
-        colorscheme hemisu
+        colorscheme PaperColor
         catch
         endtry
 
