@@ -42,8 +42,10 @@ Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin of color schemes
 Plugin 'morhetz/gruvbox'
 Plugin 'ayu-theme/ayu-vim'
+Plugin 'noahfrederick/vim-hemisu'
 Plugin 'veloce/vim-aldmeris'
 Plugin 'tomasr/molokai'
 "SnipMate plugins
@@ -131,7 +133,7 @@ inoremap <C-v> <F10><C-r>+<F10>
 
 " maps for Tagbar and Ctags
 nnoremap <silent> <F9> :TagbarToggle<CR>
-nmap <C-e> :NERDTreeToggle<CR>
+nnoremap <C-e> :NERDTreeToggle<CR>
 """""""""""""""""""""""""""
 " Git-gutter configuration
 """""""""""""""""""""""""""
@@ -170,16 +172,37 @@ set statusline+=%F
 " Enable syntax highlighting
 syntax enable 
 syntax on 
+let mapleader = ","
+let g:mapleader = ","
 " Tell vim to use colors which look good on a dark/light background
-set background=dark
+set t_Co=256
+set termguicolors     " enable true colors support
+let ayucolor="light"  " for light version of theme
+nnoremap <silent> <Leader>b :call ToggleBackground()<CR>
+function! ToggleBackground()
+    if &background == "light"
+        set background=dark
+                " Color scheme
+        try
+        colorscheme gruvbox
+        catch
+        endtry
+    else
+        set background=light
+         " Color scheme
+        try
+        colorscheme hemisu
+        catch
+        endtry
 
-" Color scheme
-try
-    colorscheme gruvbox
-catch
-endtry
-
-
+    endif
+endfunction
+        set background=dark
+         " Color scheme
+        try
+        colorscheme gruvbox
+        catch
+        endtry
 " Highlight current cursor line, <leader>c to toggle on and off
 set nocursorline
 hi CursorLine cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
