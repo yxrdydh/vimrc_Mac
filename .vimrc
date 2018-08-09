@@ -41,7 +41,7 @@ Plug 'tomasr/molokai'
 "SnipMate plugins
 """"""""""""""""""""""""""""""""""""
 " Multiple Plug commands can be written in a single line using | separators
-Plugin 'MarcWeber/vim-addon-mw-utils'|Plugin 'tomtom/tlib_vim'|Plugin 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils'|Plug 'tomtom/tlib_vim'|Plug 'garbas/vim-snipmate'
 " Optional:
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 """""""""""""""""""""""""""""""""""
