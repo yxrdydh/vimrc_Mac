@@ -38,6 +38,9 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'noahfrederick/vim-hemisu'
 Plug 'veloce/vim-aldmeris'
 Plug 'tomasr/molokai'
+Plug 'w0ng/vim-hybrid'
+Plug 'jacoborus/tender.vim'
+Plug 'kristijanhusak/vim-hybrid-material'
 "SnipMate plugins
 """"""""""""""""""""""""""""""""""""
 " Multiple Plug commands can be written in a single line using | separators
@@ -176,22 +179,24 @@ function! ToggleBackground()
         colorscheme gruvbox
         catch
         endtry
+        let g:airline_theme = "gruvbox"
     else
         set background=light
          " Color scheme
         try
-        colorscheme PaperColor
+        colorscheme hybrid_material
         catch
         endtry
-
+        let g:airline_theme = "hybrid"
     endif
 endfunction
-        set background=dark
+        set background=light
          " Color scheme
         try
-        colorscheme gruvbox
+        colorscheme hybrid_material
         catch
         endtry
+        let g:airline_theme = "hybrid"
         " For MacVim
         set guifont=Monaco:h16
 " Highlight current cursor line, <leader>c to toggle on and off
