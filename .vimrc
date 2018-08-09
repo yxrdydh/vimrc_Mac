@@ -29,7 +29,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 
-"Plugins of mine
+"Other Plugins 
 """""""""""""""""""""""""""""
 Plugin 'tpope/vim-surround'
 Plugin 'python-mode/python-mode'
@@ -124,16 +124,18 @@ set clipboard=unnamed
 
 " copy to clipboard with Ctrl-C
 
-map <C-x> :!pbcopy<CR>
-vmap <C-c> :w !pbcopy<CR><CR>
+map <C-x> :!pbcopy<cr>
+vmap <C-c> :w !pbcopy<cr><cr>
 
 " paste from clipboard with Ctrl-V
 set pastetoggle=<F10>
 inoremap <C-v> <F10><C-r>+<F10>
 
 " maps for Tagbar and Ctags
-nnoremap <silent> <F9> :TagbarToggle<CR>
-nnoremap <C-e> :NERDTreeToggle<CR>
+nnoremap <silent> <F9> :TagbarToggle<cr>
+nnoremap <C-n> :NERDTreeToggle<cr>
+nnoremap <C-e> :edit.<cr>
+
 """""""""""""""""""""""""""
 " Git-gutter configuration
 """""""""""""""""""""""""""
@@ -176,9 +178,7 @@ let mapleader = ","
 let g:mapleader = ","
 " Tell vim to use colors which look good on a dark/light background
 set t_Co=256
-set termguicolors     " enable true colors support
-let ayucolor="light"  " for light version of theme
-nnoremap <silent> <Leader>b :call ToggleBackground()<CR>
+nnoremap <silent> <Leader>bg :call ToggleBackground()<cr>
 function! ToggleBackground()
     if &background == "light"
         set background=dark
@@ -203,10 +203,38 @@ endfunction
         colorscheme gruvbox
         catch
         endtry
+        " For MacVim
+        set guifont=Monaco:h16
 " Highlight current cursor line, <leader>c to toggle on and off
 set nocursorline
 hi CursorLine cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
-nnoremap <leader>c :set cursorline!<CR>
+nnoremap <leader>c :set cursorline!<cr>
+
+" Fast saving and quit
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+" Close the current buffer
+map <leader>bd :bd<cr>
+" Cycle through listed buffers
+map <leader>bn :bn<cr>
+map <leader>bp :bp<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tt :tabnext<cr>
+map <leader>tp :tabp<CR>
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -261,4 +289,9 @@ let g:airline_symbols.whitespace = 'Ξ'
 "let g:airline_symbols.readonly = ''
 "let g:airline_symbols.linenr = '☰'
 "let g:airline_symbols.maxlinenr = ''
+"
+"-------------------------------------------------------------
+" Ctags
+" ------------------------------------------------------------
+
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
