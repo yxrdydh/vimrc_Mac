@@ -3,61 +3,50 @@
 set nocompatible              " be iMproved, required
 "filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" set the runtime path to include vim-plug and initialize
+call plug#begin('~/.vim/plugged')
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+Plug 'junegunn/vim-easy-align'
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 "From here other plugins from the original Vundle config
-Plugin 'scrooloose/nerdtree'        
-Plugin 'skammer/vim-css-color'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'groenewege/vim-less'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'        
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/syntastic'
+Plug 'junegunn/fzf',
 
 "Other Plugins 
 """""""""""""""""""""""""""""
-Plugin 'tpope/vim-surround'
-Plugin 'python-mode/python-mode'
-Plugin 'vim-scripts/ctrlp.vim'
-Plugin 'vim-scripts/supertab'
-Plugin 'majutsushi/tagbar'
-Plugin 'lervag/vimtex'
-Plugin 'jvirtanen/vim-octave'
-Plugin 'xuhdev/vim-latex-live-preview'
-Plugin 'JuliaEditorSupport/julia-vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-surround'
+Plug 'python-mode/python-mode'
+Plug 'vim-scripts/ctrlp.vim'
+Plug 'vim-scripts/supertab'
+Plug 'majutsushi/tagbar'
+Plug 'lervag/vimtex'
+Plug 'jvirtanen/vim-octave'
+Plug 'xuhdev/vim-latex-live-preview'
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "Plugin of color schemes
-Plugin 'morhetz/gruvbox'
-Plugin 'NLKNguyen/papercolor-theme'
-Plugin 'noahfrederick/vim-hemisu'
-Plugin 'veloce/vim-aldmeris'
-Plugin 'tomasr/molokai'
+Plug 'morhetz/gruvbox'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'noahfrederick/vim-hemisu'
+Plug 'veloce/vim-aldmeris'
+Plug 'tomasr/molokai'
 "SnipMate plugins
 """"""""""""""""""""""""""""""""""""
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
+" Multiple Plug commands can be written in a single line using | separators
+Plugin 'MarcWeber/vim-addon-mw-utils'|Plugin 'tomtom/tlib_vim'|Plugin 'garbas/vim-snipmate'
 " Optional:
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 """""""""""""""""""""""""""""""""""
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
