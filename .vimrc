@@ -67,9 +67,14 @@ filetype plugin indent on    " required
 
 " General
 set number  " Show line numbers
+set wrap
 set linebreak " Break lines at word (requires Wrap lines)
-set showbreak=+++ " Wrap-broken line prefix
-set textwidth=100 " Line wrap (number of cols)
+"set showbreak=+++ " Wrap-broken line prefix
+set textwidth=0 " Line wrap (number of cols)
+set spelllang=en_us " My default language is American English
+set grepprg=~/.vim/scripts/ack
+" Use # without VIM moving it to the first column
+inoremap # X<C-H># " Use # without VIM moving it to the first column
 set showmatch " Highlight matching brace
 set visualbell  " Use visual bell (no beeping)
  
@@ -239,8 +244,12 @@ set ffs=unix,dos,mac
 "---------------------------------------------------------------
 " LATEX LIVE PREVIEWER
 " --------------------------------------------------------------
-autocmd Filetype tex setl updatetime=1
-let g:livepreview_previewer = 'open -a Preview'
+autocmd Filetype tex setl updatetime=500
+"let g:livepreview_previewer = 'open -a PDF\ Expert'
+"let g:livepreview_previewer = 'evince'
+"let g:livepreview_previewer = 'open -a texshop'
+"let g:livepreview_previewer = 'open -a Preview'
+let g:livepreview_previewer = 'open -a Skim'
 set nofoldenable
 
 "-------------------------------------------------------------
@@ -289,3 +298,92 @@ let g:airline_symbols.whitespace = 'Ξ'
 " ------------------------------------------------------------
 
 let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+
+
+" http://stackoverflow.com/questions/13848429/is-there-a-way-to-have-window-navigation-wrap-around-in-vim<Paste>
+function! s:GotoNextWindow( direction, count )
+  let l:prevWinNr = winnr()
+  execute a:count . 'wincmd' a:direction
+  return winnr() != l:prevWinNr
+endfunction
+function! s:JumpWithWrap( direction, opposite )
+  if ! s:GotoNextWindow(a:direction, v:count1)
+    call s:GotoNextWindow(a:opposite, 999)
+  endif
+endfunction
+nnoremap <silent> <C-w>h :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w>j :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w>k :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w>l :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+nnoremap <silent> <C-w><Left> :<C-u>call <SID>JumpWithWrap('h', 'l')<CR>
+nnoremap <silent> <C-w><Down> :<C-u>call <SID>JumpWithWrap('j', 'k')<CR>
+nnoremap <silent> <C-w><Up> :<C-u>call <SID>JumpWithWrap('k', 'j')<CR>
+nnoremap <silent> <C-w><Right> :<C-u>call <SID>JumpWithWrap('l', 'h')<CR>
+" persistent undo
+if has("persistent_undo")
+    set undodir=~/.vim/undo/
+    set undofile
+    au BufWritePre /tmp/* setlocal noundofile
+endif
+
+
+
+" Return current working directory (in quotes) if either autochdir is on or a
+" symlink has been followed. Otherwise, return empty string. To be used for
+" display in the status line
+function! StatusCwd()
+  if exists("+autochdir")
+    if &autochdir
+      return '"' . getcwd() . '"/'
+    endif
+  endif
+  if exists("b:followed_symlink")
+    return '"' . getcwd() . '"/'
+  endif
+  return ''
+endfunction!
+" Tagbar (and legacy Taglist ) plugin
+let Tlist_Inc_Winwidth = 0 " Taglist: Don't enlarge the terminal
+"noremap <silent> <leader>t :TlistToggle<CR><C-W>h
+noremap <silent> <leader>t :TagbarToggle<CR>
+let g:tagbar_ctags_bin = 'ctags'
+let g:tagbar_show_linenumbers = 0
+let g:tagbar_sort = 0
+let g:tagbar_left = 1
+let g:tagbar_foldlevel = 2
+"use ~/.vim/ctags.cnf This depends on a patched version of the tagbar plugin
+"(pull request #476)
+let g:tagbar_ctags_options = ['NONE', split(&rtp,",")[0].'/ctags.cnf']
+" the definition below depend on the settings in ctags.cnf
+let g:tagbar_type_make = {
+            \ 'kinds':[
+                \ 'm:macros',
+                \ 't:targets'
+            \ ]
+\}
+let g:tagbar_type_julia = {
+    \ 'ctagstype' : 'julia',
+    \ 'kinds'     : [
+        \ 't:struct', 'f:function', 'm:macro', 'c:const']
+    \ }
+" LaTeX to Unicode substitutions
+"  This is mainly for Julia, but I also like to use it for Python and others
+let g:latex_to_unicode_file_types = [
+    \ "julia", "python", "mail", "markdown", "pandoc", "human"]
+noremap <silent> <leader>l :call LaTeXtoUnicode#Toggle()<CR>
+" go to defn of tag under the cursor (case sensitive)
+" adapted from http://tartley.com/?p=1277
+fun! MatchCaseTag()
+    let ic = &ic
+    set noic
+    try
+        exe 'tjump ' . expand('<cword>')
+    catch /.*/
+        echo v:exception
+    finally
+       let &ic = ic
+    endtry
+endfun
+nnoremap <silent> <c-]> :call MatchCaseTag()<CR>
+
+
