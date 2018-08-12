@@ -69,6 +69,7 @@ filetype plugin indent on    " required
 set number  " Show line numbers
 set wrap
 set linebreak " Break lines at word (requires Wrap lines)
+set display+=lastline
 "set showbreak=+++ " Wrap-broken line prefix
 set textwidth=0 " Line wrap (number of cols)
 set spelllang=en_us " My default language is American English
