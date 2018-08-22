@@ -17,7 +17,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'scrooloose/nerdtree'        
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/syntastic'
-Plug 'junegunn/fzf',
+Plug 'junegunn/fzf'
 
 "Other Plugins 
 """""""""""""""""""""""""""""
