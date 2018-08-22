@@ -28,7 +28,7 @@ Plug 'vim-scripts/supertab'
 Plug 'majutsushi/tagbar'
 Plug 'lervag/vimtex'
 Plug 'jvirtanen/vim-octave'
-Plug 'xuhdev/vim-latex-live-preview'
+Plug 'yxrdydh/vim-latex-live-preview'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -41,6 +41,8 @@ Plug 'tomasr/molokai'
 Plug 'w0ng/vim-hybrid'
 Plug 'jacoborus/tender.vim'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'nanotech/jellybeans.vim'
+
 "SnipMate plugins
 """"""""""""""""""""""""""""""""""""
 " Multiple Plug commands can be written in a single line using | separators
