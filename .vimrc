@@ -23,6 +23,7 @@ Plug 'junegunn/fzf'
 """""""""""""""""""""""""""""
 Plug 'tpope/vim-surround'
 Plug 'python-mode/python-mode'
+Plug 'Valloric/YouCompleteMe',{'do':'python3 install.py'}
 Plug 'vim-scripts/ctrlp.vim'
 Plug 'vim-scripts/supertab'
 Plug 'majutsushi/tagbar'
