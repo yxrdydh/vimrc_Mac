@@ -208,6 +208,7 @@ endfunction
         let g:airline_theme = "hybrid"
         " For MacVim
         set guifont=Monaco:h16
+        set guioptions= "remove all the scrollbars
 " Highlight current cursor line, <leader>c to toggle on and off
 set nocursorline
 hi CursorLine cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
@@ -442,7 +443,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 "定义存放代码片段的文件夹，使用自定义和默认的，将会的到全局，有冲突的会提示
-let g:UltiSnipsSnippetDirectories=["bundle/vim-snippets/UltiSnips"]
+let g:UltiSnipsSnippetDirectories=["plugged/vim-snippets/UltiSnips"]
 " 参考https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-62941322
 " 解决ultisnips和ycm tab冲突，如果不使用下面的办法解决可以参考
 " https://github.com/Valloric/YouCompleteMe/issues/36#issuecomment-63205056的配置
