@@ -17,8 +17,8 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'scrooloose/nerdtree'        
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/syntastic'
-Plug 'junegunn/fzf'
-
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  } " Fuzzy finder
+Plug 'junegunn/fzf.vim' " Fuzzy finder plugin
 "Other Plugins 
 """""""""""""""""""""""""""""
 Plug 'tpope/vim-surround'
@@ -157,6 +157,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_messages = { 'regex': '\ldots' }
 
 " so that syntastic uses .jshintrc files if present - http://stackoverflow.com/questions/28573553/how-can-i-make-syntastic-load-a-different-checker-based-on-existance-of-files-in
 
@@ -196,7 +197,7 @@ function! ToggleBackground()
         colorscheme hybrid_material
         catch
         endtry
-        let g:airline_theme = "hybrid"
+        let g:airline_theme = "gruvbox"
     endif
 endfunction
         set background=light
@@ -205,10 +206,10 @@ endfunction
         colorscheme hybrid_material
         catch
         endtry
-        let g:airline_theme = "hybrid"
+        let g:airline_theme = "gruvbox"
         " For MacVim
         set guifont=Monaco:h16
-        set guioptions= "remove all the scrollbars
+        set guioptions= "remove all the sidebars
 " Highlight current cursor line, <leader>c to toggle on and off
 set nocursorline
 hi CursorLine cterm=NONE ctermbg=grey ctermfg=white guibg=grey guifg=white
@@ -249,7 +250,7 @@ set ffs=unix,dos,mac
 "---------------------------------------------------------------
 " LATEX LIVE PREVIEWER
 " --------------------------------------------------------------
-autocmd Filetype tex setl updatetime=500
+autocmd Filetype tex setl updatetime=1000
 "let g:livepreview_previewer = 'open -a PDF\ Expert'
 "let g:livepreview_previewer = 'evince'
 "let g:livepreview_previewer = 'open -a texshop'
@@ -258,46 +259,47 @@ let g:livepreview_previewer = 'open -a Skim'
 set nofoldenable
 
 "-------------------------------------------------------------
+"gitgutter
+"-------------------------------------------------------------
+"let g:gitgutter_sign_added = 'xx'
+"let g:gitgutter_sign_modified = 'yy'
+"let g:gitgutter_sign_removed = 'zz'
+"let g:gitgutter_sign_removed_first_line = '^^'
+"let g:gitgutter_sign_modified_removed = 'ww'
+""-------------------------------------------------------------
 " AIRLINE
 " ------------------------------------------------------------
 " enable powerline fonts
 let g:airline_powerline_fonts = 1
 " enable tabline
 let g:airline#extensions#tabline#enabled = 1
-
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" show tab number in tab line
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#vimtex#left = ""
+let g:airline#extensions#vimtex#right = ""
+"
+set laststatus=2 " Show the statusline
+set noshowmode " Hide the default mode text
 "  airline symbols dictionary
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-" unicode symbols, for multiple definitions choose one
-"let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.crypt = '🔒'
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = ''
-"let g:airline_symbols.maxlinenr = '㏑'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = 'Ɇ'
-let g:airline_symbols.whitespace = 'Ξ'
-" powerline symbols, needed if powerline fonts are installed
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = '☰'
-"let g:airline_symbols.maxlinenr = ''
-"
+if has("gui_running")
+  set guifont=MesloLGSDZForPowerline-Regular:h16
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+" show absolute file path in status line
+"let g:airline_section_c = '%<%F%m %#__accent_red#%{airline#util#wrap(airline#parts#readonly(),0)}%#__restore__#'
+
 "-------------------------------------------------------------
 " Ctags
 " ------------------------------------------------------------
@@ -330,8 +332,6 @@ if has("persistent_undo")
     set undofile
     au BufWritePre /tmp/* setlocal noundofile
 endif
-
-
 
 " Return current working directory (in quotes) if either autochdir is on or a
 " symlink has been followed. Otherwise, return empty string. To be used for
@@ -410,9 +410,9 @@ nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>	"force recomile with syntastic
 " nnoremap <leader>lc :lclose<CR>	"close locationlist
 inoremap <leader><leader> <C-x><C-o>
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-" 不显示开启vim时检查ycm_extra_conf文件的信息  
+" 不显示开启vim时检查ycm_extra_conf文件的信息
 let g:ycm_confirm_extra_conf=0
-" 开启基于tag的补全，可以在这之后添加需要的标签路径  
+" 开启基于tag的补全，可以在这之后添加需要的标签路径
 let g:ycm_collect_identifiers_from_tags_files=1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
