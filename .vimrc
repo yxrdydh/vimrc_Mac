@@ -261,6 +261,7 @@ set nofoldenable
 "-------------------------------------------------------------
 "gitgutter
 "-------------------------------------------------------------
+let g:gitgutter_max_signs=9999
 "let g:gitgutter_sign_added = 'xx'
 "let g:gitgutter_sign_modified = 'yy'
 "let g:gitgutter_sign_removed = 'zz'
