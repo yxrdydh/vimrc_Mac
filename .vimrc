@@ -317,6 +317,8 @@ set wrapmargin=0
 " tell vim to display as many long lines as possible
 set display+=lastline
 
+"get rid of red highlight in fortran
+let fortran_have_tabs=1
 
 " Stop certain movements from always going to the first character of a line.
 " " While this behaviour deviates from that of Vi, it does what most users
