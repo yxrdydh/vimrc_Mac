@@ -425,7 +425,7 @@ if has("autocmd")
     " add an autocommand to update an existing time stamp when writing the file 
     " It uses the functions above to replace the time stamp and restores cursor 
     " position afterwards (this is from the FAQ) 
-    autocmd BufWritePre,FileWritePre * ks|call UpdateTimeStamp()|'s
+"    autocmd BufWritePre,FileWritePre * ks|call UpdateTimeStamp()|'s
 
     " Delete trailing white space on save, useful for Python and CoffeeScript
     func! DeleteTrailingWS()
@@ -770,34 +770,32 @@ autocmd Filetype tex call SetTexOptions()
 "autocmd BufRead,BufNewFile *.tex set background=light colorscheme hybrid-color
 
 "-------------------------------------------------------------
-" VIMTEX
-" ------------------------------------------------------------
 if has('unix')
     if has('mac')
         let g:vimtex_view_method = "skim"
         let g:vimtex_view_general_viewer
                 \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
         let g:vimtex_view_general_options = '-r @line @pdf @tex'
-
+        
         " This adds a callback hook that updates Skim after compilation
-        let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
-        function! UpdateSkim(status)
-            if !a:status | return | endif
-
-            let l:out = b:vimtex.out()
-            let l:tex = expand('%:p')
-            let l:cmd = [g:vimtex_view_general_viewer, '-r']
-            if !empty(system('pgrep Skim'))
-            call extend(l:cmd, ['-g'])
-            endif
-            if has('nvim')
-            call jobstart(l:cmd + [line('.'), l:out, l:tex])
-            elseif has('job')
-            call job_start(l:cmd + [line('.'), l:out, l:tex])
-            else
-            call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
-            endif
-        endfunction
+"        let g:vimtex_compiler_callback_hooks = ['UpdateSkim']
+"        function! UpdateSkim(status)
+"            if !a:status | return | endif
+"
+"            let l:out = b:vimtex.out()
+"            let l:tex = expand('%:p')
+"            let l:cmd = [g:vimtex_view_general_viewer, '-r']
+"            if !empty(system('pgrep Skim'))
+"            call extend(l:cmd, ['-g'])
+"            endif
+"            if has('nvim')
+"            call jobstart(l:cmd + [line('.'), l:out, l:tex])
+"            elseif has('job')
+"            call job_start(l:cmd + [line('.'), l:out, l:tex])
+"            else
+"            call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
+"            endif
+"        endfunction
     else
         let g:latex_view_general_viewer = "zathura"
         let g:vimtex_view_method = "zathura"
@@ -806,13 +804,11 @@ elseif has('win32')
 
 endif
 
-
 let g:vimtex_fold_enable = 1
 let g:latex_complete_close_braces = 1
 " concealing operators
-let g:tex_conceal=''
-"let g:tex_conceal = 'abdmgs'
-
+" Disable conceals by default
+let g:vimtex_syntax_conceal_disable=1
 "-------------------------------------------------------------
 " AIRLINE
 " ------------------------------------------------------------
@@ -868,7 +864,7 @@ let g:airline_symbols.maxlinenr = ''
 " shortcut to start NERDTree
 map <C-n> :NERDTreeToggle<CR>
 " start NERDTree upon startup at move cursor to editing area
-autocmd vimenter * NERDTree | wincmd p
+"autocmd vimenter * NERDTree | wincmd p
 " open NERDTree when vim startsup if no files specified
 "autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -1050,3 +1046,4 @@ let g:grammarous#default_comments_only_filetypes = {
 " -----------------------------------------------------------
 " badwolf
 let g:badwolf_darkgutter = 1 "make gutter darker than background
+
